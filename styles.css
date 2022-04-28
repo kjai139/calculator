@@ -1,0 +1,31 @@
+.botCalculatorContainer {
+    display:flex;
+
+}
+.botButtonContainer {
+    display:grid;
+}
+
+.bodyContainer{
+    display:flex;
+    
+}
+
+.buttons {
+    width:20px;
+    height:15px;
+    
+    border: 1px solid black;
+    
+}
+
+.calculatorContainer {
+    display:flex;
+    flex-direction: column;
+    flex:1 1 auto;
+    
+}
+
+.topCalculatorContainer {
+    display:flex;
+}
