@@ -1,23 +1,61 @@
+body {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 200px;
+}
+
 .botCalculatorContainer {
     display:flex;
 
 }
 .botButtonContainer {
     display:grid;
+    gap: 5px;
+    margin: 5px;
 }
 
 .bodyContainer{
     display:flex;
+    width: fit-content;
+    height: fit-content;
+    border: 5px solid black;
+
+    border-radius: 10px;
+    padding:10px;
     
+
 }
 
 .buttons {
-    width:20px;
-    height:15px;
-    
+    width:80px;
+    height:60px;
+    display:flex;
+    border-radius: 2px;
+    padding: 0;
     border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    font-weight: lighter;
+    
+    
     
 }
+.buttons:hover {
+    filter:brightness(50%);
+}
+
+.buttons:active {
+    transform: scale(0.98);
+}
+
+.buttonDivs {
+    display:flex;
+    border-radius: 2px;
+    
+}
+
 
 .calculatorContainer {
     display:flex;
@@ -28,4 +66,14 @@
 
 .topCalculatorContainer {
     display:flex;
+    justify-content: flex-end;
+    margin: 5px;
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.screen {
+    margin-right: 3px;
+    font-size: 40px;
 }
