@@ -19,6 +19,11 @@ const botButtonsContainer = document.createElement('div')
 botButtonsContainer.classList.add('botButtonContainer')
 botCalculatorContainer.appendChild(botButtonsContainer)
 
+let calculationScreen = document.createElement('div')
+calculationScreen.classList.add('calculation')
+calculationScreen.textContent = 'testing'
+topCalculatorContainer.appendChild(calculationScreen)
+
 let createScreen = document.createElement('div')
 createScreen.classList.add('screen')
 createScreen.textContent = 0
@@ -120,22 +125,46 @@ let btnDecimal = document.querySelector('[id=btn17]')
 btnDecimal.textContent = '.'
 btnDecimal.style.background = '#FFFFFF'
 
+let calculatorParser = (formula) => {
+    if (formula.includes('÷')) {
+        let leftnum = formula.split("÷")[0].slice(-1)
+        let rightnum = formula.split('÷')[1]
+        console.log(leftnum, rightnum)
+        result = leftnum / rightnum
+        formula = formula.replace(`${leftnum}÷${rightnum}`, result)
+        console.log('formula', formula)
+    }
+    return formula
+}
+
+let newCalc = false
 
 let AllBtns = document.querySelectorAll('.buttons')
 AllBtns.forEach(element => {
     element.addEventListener('click', () => {
         let txtC = element.textContent
-        console.log(txtC, typeof(txtC))
+        console.log(txtC, typeof(txtC), isNaN(txtC))
         if (isNaN(txtC) == false){
-            if (createScreen.textContent === '0') {
+            if (createScreen.textContent === '0' || newCalc === true) {
                 createScreen.textContent = txtC
+                newCalc = false
             } else{
-                createScreen.textContent += Number(txtC)
+                createScreen.textContent += txtC
             }
             
         } else if (isNaN(txtC) == true) {
             if (txtC == 'AC'){
                 createScreen.textContent = 0
+            } else if (txtC === '=') {
+                let formula = createScreen.textContent
+                console.log(formula)
+                calculationScreen.textContent = formula + '='
+                createScreen.textContent = calculatorParser(formula)
+                newCalc = true
+                formula = ''
+                
+            } else {
+                createScreen.textContent += txtC
             }
         }
         
