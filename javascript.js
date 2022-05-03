@@ -126,15 +126,26 @@ btnDecimal.textContent = '.'
 btnDecimal.style.background = '#FFFFFF'
 
 let calculatorParser = (formula) => {
-    if (formula.includes('÷')) {
-        let leftnum = formula.split("÷")[0].slice(-1)
-        let rightnum = formula.split('÷')[1]
-        console.log(leftnum, rightnum)
-        result = leftnum / rightnum
-        formula = formula.replace(`${leftnum}÷${rightnum}`, result)
-        console.log('formula', formula)
+    let index = 0
+    parsedFormula = formula
+    if (parsedFormula.includes('+')) {
+        parsedFormula = parsedFormula.split('+')
+        parsedFormula.forEach(element => {
+            
+            if (element.includes('÷')) {
+                index = parsedFormula.indexOf(element)
+                let divPart = element.split('÷')
+                console.log('div part', divPart)
+                parsedFormula[index] = `${divPart[0] / divPart[1]}`
+            }
+        })
     }
-    return formula
+    console.log('cur formula',parsedFormula)
+    answer = parsedFormula.reduce((v1, v2) => {
+        return Number(v1) + Number(v2)
+    })
+    console.log(answer)
+    return answer
 }
 
 let newCalc = false
