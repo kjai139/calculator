@@ -136,14 +136,26 @@ let calculatorParser = (formula) => {
                 index = parsedFormula.indexOf(element)
                 let divPart = element.split('÷')
                 console.log('div part', divPart)
+                divPart.forEach(element => {
+                    if (element.includes('x')) {
+                        let indexM = divPart.indexOf(element)
+                        let mPart = element.split('x')
+                        console.log('multiply part', mPart)
+                        divPart[indexM] = `${mPart[0] * mPart[1]}`
+                    }
+                })
+                console.log('div part', divPart)
                 parsedFormula[index] = `${divPart[0] / divPart[1]}`
             }
+            
         })
-    }
-    console.log('cur formula',parsedFormula)
-    answer = parsedFormula.reduce((v1, v2) => {
+
+        console.log('cur formula',parsedFormula)
+        answer = parsedFormula.reduce((v1, v2) => {
         return Number(v1) + Number(v2)
     })
+    }
+    
     console.log(answer)
     return answer
 }
