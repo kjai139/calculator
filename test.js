@@ -228,7 +228,8 @@ AllBtns.forEach(element => {
                 let formula = createScreen.textContent
                 let lastInput = formula.split(/[x+\-÷]/gm)
                 formulaArray.push(lastInput.at(-1))
-                console.log(formula, lastInput)
+                console.log('formula & lastinput', formula, lastInput)
+                console.log('farray',formulaArray)
                 calculationScreen.textContent = formula + '='
                 createScreen.textContent = calculatorParser(formulaArray)
                 newCalc = true
@@ -238,12 +239,27 @@ AllBtns.forEach(element => {
             }
             
             else {
-                newCalc = false
-                console.log('c input', cInput)
-                formulaArray.push(cInput)
-                cInput = ''
-                createScreen.textContent += txtC
-                formulaArray.push(txtC)
+                if (newCalc == true){
+                    formulaArray = []
+                    cInput = ''
+                    formulaArray.push(createScreen.textContent)
+                    createScreen.textContent += txtC
+                    formulaArray.push(txtC)
+                    
+                    newCalc = false
+                } else {
+                    console.log('c input:', cInput, formulaArray)
+                    formulaArray.push(cInput)
+                    console.log('2nd cinp', cInput)
+                
+                    cInput = ''
+                    createScreen.textContent += txtC
+                    formulaArray.push(txtC)
+
+                console.table(formulaArray)
+
+                }
+                
                 
             }
         }
