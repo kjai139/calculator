@@ -82,3 +82,13 @@ body {
 .calculation {
     font-size: 16px;
 }
+
+.smallerFontScreen {
+    margin-right: 3px;
+    font-size: 30px;
+}
+
+.smallestFontScreen {
+    margin-right: 3px;
+    font-size: 24px;
+}

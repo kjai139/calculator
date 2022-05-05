@@ -197,11 +197,19 @@ let calculatorParser = (formula) => {
         parsedFormula.splice(aIndex, 1)
     }
     console.log(parsedFormula)
+    if (parsedFormula[0].length > 16 && parsedFormula[0].includes('.') ) {
+        console.log('more than 16 digits')
+        parsedFormula[0] = Math.round(parsedFormula[0] * 100) / 100
+    } else if (parsedFormula[0] == 'NaN'){
+        parsedFormula[0] = 'ERROR'
+    }
     return parsedFormula[0]
 }
 
 let newCalc = false
 let cInput = 0
+
+
 
 let AllBtns = document.querySelectorAll('.buttons')
 AllBtns.forEach(element => {
@@ -221,6 +229,9 @@ AllBtns.forEach(element => {
             }
             
         } else if (isNaN(txtC) == true) {
+            if (txtC != '.'){
+                btnDecimal.disabled = false
+            }
             if (txtC == 'AC'){
                 formulaArray = []
                 createScreen.textContent = 0
@@ -234,12 +245,29 @@ AllBtns.forEach(element => {
                 createScreen.textContent = calculatorParser(formulaArray)
                 newCalc = true
                 formula = ''
+                if (createScreen.textContent.includes('.')) {
+                    btnDecimal.disabled = true
+                }
                 
         
-            }
+            } else if (txtC === '.'){
+                if (createScreen.textContent === '0' || newCalc === true) {
+                    createScreen.textContent += txtC
+                    cInput = createScreen.textContent
+                    console.log('dot used', formulaArray, cInput)
+                    formulaArray =[]
+                    newCalc = false
+                    btnDecimal.disabled = true
+                } else {
+                    createScreen.textContent += txtC
+                    cInput += txtC
+                    btnDecimal.disabled = true
+                }
+
+            } 
             
             else {
-                if (newCalc == true){
+                if (newCalc == true && txtC != '.'){
                     formulaArray = []
                     cInput = ''
                     formulaArray.push(createScreen.textContent)
@@ -263,6 +291,15 @@ AllBtns.forEach(element => {
                 
             }
         }
-        
+        console.log(createScreen.textContent.length)
+        if (createScreen.textContent.length > 16 && createScreen.textContent.length < 20) {
+            
+            createScreen.classList.replace('screen','smallerFontScreen')
+        } else if (createScreen.textContent.length > 20) {
+            createScreen.classList.replace('smallerFontScreen', 'smallestFontScreen')
+        }       
+        else if (createScreen.textContent.length < 16) {
+            createScreen.setAttribute('class', 'screen')
+        }
     })
 });
