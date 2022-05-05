@@ -50,6 +50,11 @@ body {
     transform: scale(0.98);
 }
 
+.keypress {
+    filter:brightness(50%);
+    transform: scale(0.98);
+
+}
 .buttonDivs {
     display:flex;
     border-radius: 2px;

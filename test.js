@@ -303,3 +303,105 @@ AllBtns.forEach(element => {
         }
     })
 });
+
+document.addEventListener('keypress', event => {
+        if (event.key === '1') {
+            console.log('1 pressed');
+            btn1.click()
+            btn1.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn1.classList.remove('keypress')
+            })
+        } else if (event.key === '2'){
+            btn2.click()
+            btn2.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn2.classList.remove('keypress')
+            })
+        } else if (event.key === '3') {
+            btn3.click()
+            btn3.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn3.classList.remove('keypress')
+            })
+        } else if (event.key === '4') {
+            btn4.click()
+            btn4.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn4.classList.remove('keypress')
+            })
+        } else if (event.key === '5') {
+            btn5.click()
+            btn5.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn5.classList.remove('keypress')
+            })
+        } else if (event.key === '6') {
+            btn6.click()
+            btn6.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn6.classList.remove('keypress')
+            })
+        } else if (event.key === '7') {
+            btn7.click()
+            btn7.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn7.classList.remove('keypress')
+            })
+        } else if (event.key === '8') {
+            btn8.click()
+            btn8.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn8.classList.remove('keypress')
+            })
+        } else if (event.key === '9') {
+            btn9.click()
+            btn9.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn9.classList.remove('keypress')
+            })
+        } else if (event.key === '0') {
+            btn0.click()
+            btn0.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn0.classList.remove('keypress')
+            })
+        } else if (event.key === '+') {
+            btnAdd.click()
+            btnAdd.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btnAdd.classList.remove('keypress')
+            })
+        } else if (event.key === '-') {
+            btnSubtract.click()
+            btnSubtract.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btnSubtract.classList.remove('keypress')
+            })
+        } else if (event.key === '/') {
+            btnDivide.click()
+            btnDivide.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btnDivide.classList.remove('keypress')
+            })
+        } else if (event.key === '*') {
+            btnMultiply.click()
+            btnMultiply.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btnMultiply.classList.remove('keypress')
+            })
+        } else if (event.key === '=' || event.key === 'Enter') {
+            btnEqual.click()
+            btnEqual.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btnEqual.classList.remove('keypress')
+            })
+        } else if (event.key === '.') {
+            btnDecimal.click()
+            btnDecimal.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btnDecimal.classList.remove('keypress')
+            })
+        }
+        
+    })
