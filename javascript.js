@@ -21,7 +21,7 @@ botCalculatorContainer.appendChild(botButtonsContainer)
 
 let calculationScreen = document.createElement('div')
 calculationScreen.classList.add('calculation')
-calculationScreen.textContent = 'testing'
+calculationScreen.textContent = '0'
 topCalculatorContainer.appendChild(calculationScreen)
 
 let createScreen = document.createElement('div')
@@ -99,8 +99,9 @@ btnOpenBracket.textContent = '('
 let btnCloseBracket = document.querySelector('[id=btn1]')
 btnCloseBracket.textContent = ')'
 
-let btnPercent = document.querySelector('[id=btn2]')
-btnPercent.textContent = '%'
+let btnBKSPC = document.querySelector('[id=btn2]')
+btnBKSPC.textContent = 'BKSPC'
+btnBKSPC.classList.add('BKSPC')
 
 let btnClear = document.querySelector('[id=btn3]')
 btnClear.textContent = 'AC'
@@ -197,11 +198,19 @@ let calculatorParser = (formula) => {
         parsedFormula.splice(aIndex, 1)
     }
     console.log(parsedFormula)
+    if (parsedFormula[0].length > 16 && parsedFormula[0].includes('.') ) {
+        console.log('more than 16 digits')
+        parsedFormula[0] = Math.round(parsedFormula[0] * 100) / 100
+    } else if (parsedFormula[0] == 'NaN'){
+        parsedFormula[0] = 'ERROR'
+    }
     return parsedFormula[0]
 }
 
 let newCalc = false
 let cInput = 0
+
+
 
 let AllBtns = document.querySelectorAll('.buttons')
 AllBtns.forEach(element => {
@@ -221,6 +230,9 @@ AllBtns.forEach(element => {
             }
             
         } else if (isNaN(txtC) == true) {
+            if (txtC != '.'){
+                btnDecimal.disabled = false
+            }
             if (txtC == 'AC'){
                 formulaArray = []
                 createScreen.textContent = 0
@@ -228,34 +240,181 @@ AllBtns.forEach(element => {
                 let formula = createScreen.textContent
                 let lastInput = formula.split(/[x+\-÷]/gm)
                 formulaArray.push(lastInput.at(-1))
-                console.log(formula, lastInput)
+                console.log('formula & lastinput', formula, lastInput)
+                console.log('farray',formulaArray)
                 calculationScreen.textContent = formula + '='
                 createScreen.textContent = calculatorParser(formulaArray)
                 newCalc = true
                 formula = ''
+                if (createScreen.textContent.includes('.')) {
+                    btnDecimal.disabled = true
+                }
                 
         
-            } else if (txtC === 'BKSPC') {
+            }else if (txtC === 'BKSPC') {
                 
                 if (createScreen.textContent.length > 1) {
                     createScreen.textContent = createScreen.textContent.slice(0, -1)
+                    cInput = cInput.slice(0, -1)
                     formulaArray.pop()
                 } else if (createScreen.textContent.length == 1) {
                     createScreen.textContent = '0'
                     formulaArray.pop()
                 }
-            }
+            
+            }else if (txtC === '.'){
+                if (createScreen.textContent === '0' || newCalc === true) {
+                    createScreen.textContent += txtC
+                    cInput = createScreen.textContent
+                    console.log('dot used', formulaArray, cInput)
+                    formulaArray =[]
+                    newCalc = false
+                    btnDecimal.disabled = true
+                } else {
+                    createScreen.textContent += txtC
+                    cInput += txtC
+                    btnDecimal.disabled = true
+                }
+
+            } 
             
             else {
-                newCalc = false
-                console.log('c input', cInput)
-                formulaArray.push(cInput)
-                cInput = ''
-                createScreen.textContent += txtC
-                formulaArray.push(txtC)
+                if (newCalc == true && txtC != '.'){
+                    formulaArray = []
+                    cInput = ''
+                    formulaArray.push(createScreen.textContent)
+                    createScreen.textContent += txtC
+                    formulaArray.push(txtC)
+                    
+                    newCalc = false
+                } else {
+                    console.log('c input:', cInput, formulaArray)
+                    formulaArray.push(cInput)
+                    console.log('2nd cinp', cInput)
+                
+                    cInput = ''
+                    createScreen.textContent += txtC
+                    formulaArray.push(txtC)
+
+                console.table(formulaArray)
+
+                }
+                
                 
             }
         }
-        
+        console.log(createScreen.textContent.length)
+        if (createScreen.textContent.length > 16 && createScreen.textContent.length < 20) {
+            
+            createScreen.classList.replace('screen','smallerFontScreen')
+        } else if (createScreen.textContent.length > 20) {
+            createScreen.classList.replace('smallerFontScreen', 'smallestFontScreen')
+        }       
+        else if (createScreen.textContent.length < 16) {
+            createScreen.setAttribute('class', 'screen')
+        }
     })
 });
+
+document.addEventListener('keypress', event => {
+        if (event.key === '1') {
+            console.log('1 pressed');
+            btn1.click()
+            btn1.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn1.classList.remove('keypress')
+            })
+        } else if (event.key === '2'){
+            btn2.click()
+            btn2.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn2.classList.remove('keypress')
+            })
+        } else if (event.key === '3') {
+            btn3.click()
+            btn3.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn3.classList.remove('keypress')
+            })
+        } else if (event.key === '4') {
+            btn4.click()
+            btn4.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn4.classList.remove('keypress')
+            })
+        } else if (event.key === '5') {
+            btn5.click()
+            btn5.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn5.classList.remove('keypress')
+            })
+        } else if (event.key === '6') {
+            btn6.click()
+            btn6.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn6.classList.remove('keypress')
+            })
+        } else if (event.key === '7') {
+            btn7.click()
+            btn7.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn7.classList.remove('keypress')
+            })
+        } else if (event.key === '8') {
+            btn8.click()
+            btn8.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn8.classList.remove('keypress')
+            })
+        } else if (event.key === '9') {
+            btn9.click()
+            btn9.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn9.classList.remove('keypress')
+            })
+        } else if (event.key === '0') {
+            btn0.click()
+            btn0.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btn0.classList.remove('keypress')
+            })
+        } else if (event.key === '+') {
+            btnAdd.click()
+            btnAdd.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btnAdd.classList.remove('keypress')
+            })
+        } else if (event.key === '-') {
+            btnSubtract.click()
+            btnSubtract.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btnSubtract.classList.remove('keypress')
+            })
+        } else if (event.key === '/') {
+            btnDivide.click()
+            btnDivide.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btnDivide.classList.remove('keypress')
+            })
+        } else if (event.key === '*') {
+            btnMultiply.click()
+            btnMultiply.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btnMultiply.classList.remove('keypress')
+            })
+        } else if (event.key === '=' || event.key === 'Enter') {
+            event.preventDefault()
+            btnEqual.click()
+            btnEqual.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btnEqual.classList.remove('keypress')
+            })
+        } else if (event.key === '.') {
+            btnDecimal.click()
+            btnDecimal.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btnDecimal.classList.remove('keypress')
+            })
+        }
+        
+    })
