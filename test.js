@@ -21,7 +21,7 @@ botCalculatorContainer.appendChild(botButtonsContainer)
 
 let calculationScreen = document.createElement('div')
 calculationScreen.classList.add('calculation')
-calculationScreen.textContent = 'testing'
+calculationScreen.textContent = '0'
 topCalculatorContainer.appendChild(calculationScreen)
 
 let createScreen = document.createElement('div')
@@ -99,8 +99,9 @@ btnOpenBracket.textContent = '('
 let btnCloseBracket = document.querySelector('[id=btn1]')
 btnCloseBracket.textContent = ')'
 
-let btnPercent = document.querySelector('[id=btn2]')
-btnPercent.textContent = '%'
+let btnBKSPC = document.querySelector('[id=btn2]')
+btnBKSPC.textContent = 'BKSPC'
+btnBKSPC.classList.add('BKSPC')
 
 let btnClear = document.querySelector('[id=btn3]')
 btnClear.textContent = 'AC'
@@ -250,7 +251,18 @@ AllBtns.forEach(element => {
                 }
                 
         
-            } else if (txtC === '.'){
+            }else if (txtC === 'BKSPC') {
+                
+                if (createScreen.textContent.length > 1) {
+                    createScreen.textContent = createScreen.textContent.slice(0, -1)
+                    cInput = cInput.slice(0, -1)
+                    formulaArray.pop()
+                } else if (createScreen.textContent.length == 1) {
+                    createScreen.textContent = '0'
+                    formulaArray.pop()
+                }
+            
+            }else if (txtC === '.'){
                 if (createScreen.textContent === '0' || newCalc === true) {
                     createScreen.textContent += txtC
                     cInput = createScreen.textContent
@@ -391,6 +403,7 @@ document.addEventListener('keypress', event => {
                 btnMultiply.classList.remove('keypress')
             })
         } else if (event.key === '=' || event.key === 'Enter') {
+            event.preventDefault()
             btnEqual.click()
             btnEqual.classList.add('keypress')
             document.addEventListener('keyup', () => {

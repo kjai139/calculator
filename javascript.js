@@ -235,6 +235,15 @@ AllBtns.forEach(element => {
                 formula = ''
                 
         
+            } else if (txtC === 'BKSPC') {
+                
+                if (createScreen.textContent.length > 1) {
+                    createScreen.textContent = createScreen.textContent.slice(0, -1)
+                    formulaArray.pop()
+                } else if (createScreen.textContent.length == 1) {
+                    createScreen.textContent = '0'
+                    formulaArray.pop()
+                }
             }
             
             else {
