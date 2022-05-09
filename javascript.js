@@ -415,6 +415,24 @@ document.addEventListener('keypress', event => {
             document.addEventListener('keyup', () => {
                 btnDecimal.classList.remove('keypress')
             })
+        } else if (event.key === 'Delete') {
+            event.preventDefault()
+            btnClear.click()
+            btnClear.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btnClear.classList.remove('keypress')
+            })
         }
         
+    })
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Backspace') {
+            event.preventDefault()
+            btnBKSPC.click()
+            btnBKSPC.classList.add('keypress')
+            document.addEventListener('keyup', () => {
+                btnBKSPC.classList.remove('keypress')
+            })
+        }
     })
